@@ -13,7 +13,8 @@ from zipline.utils.compat import wraps
 from zipline.utils.cli import Date, Timestamp
 from zipline.utils.run_algo import _run, BenchmarkSpec, load_extensions
 from zipline.extensions import create_args
-
+from zipline.utils.yaml_utils import load_yaml
+from zipline.utils.paths import zipline_path
 try:
     __IPYTHON__
 except NameError:
@@ -268,6 +269,10 @@ def run(ctx,
         blotter):
     """Run a backtest for the given algorithm.
     """
+    ZIPLINE_CONFIG_YAML = zipline_path("config.yaml")
+    zipline_cfg = load_yaml(ZIPLINE_CONFIG_YAML, false)
+    print(zipline_cfg)
+
     # check that the start and end dates are passed correctly
     if start is None and end is None:
         # check both at the same time to avoid the case where a user

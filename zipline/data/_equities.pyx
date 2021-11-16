@@ -22,6 +22,7 @@ from numpy import (
     full,
     intp,
     uint32,
+    uint64,
     zeros,
 )
 from numpy cimport (
@@ -29,6 +30,7 @@ from numpy cimport (
     intp_t,
     ndarray,
     uint32_t,
+    uint64_t,
     uint8_t,
 )
 from numpy.math cimport NAN
@@ -180,8 +182,8 @@ cpdef _read_bcolz_data(ctable_t table,
         int nassets
         str column_name
         carray_t carray
-        ndarray[dtype=uint32_t, ndim=1] raw_data
-        ndarray[dtype=uint32_t, ndim=2] outbuf
+        ndarray[dtype=uint64_t, ndim=1] raw_data
+        ndarray[dtype=uint64_t, ndim=2] outbuf
         ndarray[dtype=uint8_t, ndim=2, cast=True] where_nan
         ndarray[dtype=float64_t, ndim=2] outbuf_as_float
         intp_t asset
@@ -198,7 +200,7 @@ cpdef _read_bcolz_data(ctable_t table,
         raise ValueError("Incompatible index arrays.")
 
     for column_name in columns:
-        outbuf = zeros(shape=shape, dtype=uint32)
+        outbuf = zeros(shape=shape, dtype=uint64)
         if read_all:
             raw_data = table[column_name][:]
 
