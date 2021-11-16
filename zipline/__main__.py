@@ -270,7 +270,7 @@ def run(ctx,
     """Run a backtest for the given algorithm.
     """
     ZIPLINE_CONFIG_YAML = zipline_path("config.yaml")
-    zipline_cfg = load_yaml(ZIPLINE_CONFIG_YAML, false)
+    zipline_cfg = load_yaml(ZIPLINE_CONFIG_YAML, False)
     print(zipline_cfg)
 
     # check that the start and end dates are passed correctly
