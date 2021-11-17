@@ -20,6 +20,9 @@ try:
 except NameError:
     __IPYTHON__ = False
 
+ZIPLINE_CONFIG_YAML = zipline_path(["config.yaml"])
+zipline_cfg = load_yaml(ZIPLINE_CONFIG_YAML, False)
+# print(zipline_cfg)
 
 @click.group()
 @click.option(
@@ -114,7 +117,12 @@ def ipython_only(option):
 
 
 DEFAULT_BUNDLE = 'quantopian-quandl'
+DEFAULT_CALENDAR = 'XNYS'
+if 'bundles' in zipline_cfg:
+    DEFAULT_BUNDLE = zipline_cfg['bundles'].get('default', DEFAULT_BUNDLE)
 
+if 'calendar' in zipline_cfg:
+    DEFAULT_CALENDAR = zipline_cfg['bundles'].get('calendar', DEFAULT_CALENDAR)
 
 @main.command()
 @click.option(
@@ -219,7 +227,7 @@ DEFAULT_BUNDLE = 'quantopian-quandl'
 @click.option(
     '--trading-calendar',
     metavar='TRADING-CALENDAR',
-    default='XNYS',
+    default=DEFAULT_CALENDAR,
     help="The calendar you want to use e.g. XLON. XNYS is the default."
 )
 @click.option(
@@ -269,9 +277,7 @@ def run(ctx,
         blotter):
     """Run a backtest for the given algorithm.
     """
-    ZIPLINE_CONFIG_YAML = zipline_path("config.yaml")
-    zipline_cfg = load_yaml(ZIPLINE_CONFIG_YAML, False)
-    print(zipline_cfg)
+
 
     # check that the start and end dates are passed correctly
     if start is None and end is None:
