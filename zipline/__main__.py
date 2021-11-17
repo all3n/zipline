@@ -122,7 +122,7 @@ if 'bundles' in zipline_cfg:
     DEFAULT_BUNDLE = zipline_cfg['bundles'].get('default', DEFAULT_BUNDLE)
 
 if 'calendar' in zipline_cfg:
-    DEFAULT_CALENDAR = zipline_cfg['bundles'].get('calendar', DEFAULT_CALENDAR)
+    DEFAULT_CALENDAR = zipline_cfg['calendar'].get('default', DEFAULT_CALENDAR)
 
 @main.command()
 @click.option(
@@ -228,6 +228,7 @@ if 'calendar' in zipline_cfg:
     '--trading-calendar',
     metavar='TRADING-CALENDAR',
     default=DEFAULT_CALENDAR,
+    show_default=True,
     help="The calendar you want to use e.g. XLON. XNYS is the default."
 )
 @click.option(
