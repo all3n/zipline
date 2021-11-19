@@ -45,7 +45,7 @@ def gen_asset_metadata(data, symbols_map, show_progress):
     return data
 
 
-@bundles.register("joinquant")
+@bundles.register("joinquant", calendar_name = 'XSHG')
 def joinquant_bundle(
         environ,
         asset_db_writer,
