@@ -2,6 +2,7 @@
 from . import quandl  # noqa
 from . import csvdir  # noqa
 from . import joinquant
+from . import mysql
 
 from .core import (
     UnknownBundle,
